@@ -1,0 +1,12 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.Python
+
+# Generated audit output (not source)
+.legal-audit/
+
+# Config with real values (use config.example.yaml as template)
+config.yaml

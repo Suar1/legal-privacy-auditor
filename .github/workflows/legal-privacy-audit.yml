@@ -1,0 +1,44 @@
+name: Legal Privacy Audit
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r legal-privacy-auditor/requirements.txt
+
+      - name: Run deterministic audit
+        run: python legal-privacy-auditor/auditor.py scan . --config legal-audit.yaml --full
+
+      - name: Enforce configured high-confidence rules
+        shell: python
+        run: |
+          import json, pathlib, yaml, sys
+          scan = json.loads(pathlib.Path(".legal-audit/scan.json").read_text())
+          cfg = yaml.safe_load(pathlib.Path("legal-audit.yaml").read_text())
+          blocked = set(cfg.get("audit", {}).get("fail_ci_on", []))
+          hits = [f for f in scan["findings"] if f["rule_id"] in blocked]
+          for f in hits:
+              print(f"::error::{f['rule_id']}: {f['title']}")
+          sys.exit(1 if hits else 0)
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: legal-privacy-audit
+          path: |
+            reports/
+            .legal-audit/

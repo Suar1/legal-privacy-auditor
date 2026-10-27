@@ -1,0 +1,38 @@
+project:
+  name: Example App
+  type: web
+  jurisdictions: [DE, EU]
+
+company:
+  legal_name: null
+  postal_address: null
+  privacy_email: null
+  copyright_email: null
+  dmca_agent: null
+
+age_policy:
+  minimum_age: null
+  collect_full_dob: false
+
+features:
+  user_accounts: true
+  subscriptions: false
+  marketing_email: false
+  user_uploads: false
+  healthcare_data: false
+
+audit:
+  mode: audit-only
+  allow_code_changes: false
+  allow_dependency_changes: false
+  allow_database_migrations: false
+  create_git_commit: false
+  fail_ci_on:
+    - committed_secret
+    - analytics_before_consent
+    - sensitive_logging
+    - raw_payment_card_storage
+    - public_upload_without_auth
+
+third_parties:
+  approved: []
