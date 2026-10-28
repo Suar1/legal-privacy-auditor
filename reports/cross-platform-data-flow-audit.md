@@ -9,11 +9,14 @@
 
 | Finding | Severity | Status |
 |---|---|---|
-| Health privacy policy has unfilled [PLACEHOLDER] values | CRITICAL | OPEN (from Platform 3 audit) |
+| Health privacy policy has unfilled [PLACEHOLDER] values | CRITICAL | **RESOLVED 2026-10-28** |
 | Nuqta ID ↔ Health PHI data minimisation | INFO | ADEQUATE |
 | Nuqta ID → Sale/Pro customer data fetch | INFO | ADEQUATE |
-| Cross-platform disclosure consistency | MEDIUM | PARTIALLY CONSISTENT |
+| Cross-platform disclosure consistency | MEDIUM | **SUBSTANTIALLY IMPROVED 2026-10-28** |
 | ID admin settings reference Health integration (placeholder only) | INFO | NOT ACTIVE |
+| Nuqta ID age gate bypass (DOB not required server-side) | CRITICAL | **RESOLVED 2026-10-28** |
+| GDPR Art. 20 data portability — Pro and Sale have no export endpoint | MEDIUM | **RESOLVED 2026-10-28** |
+| Suar Services loads Inter font via Google Fonts CDN | MEDIUM | **RESOLVED 2026-10-28** |
 
 ---
 
@@ -108,14 +111,14 @@ Clinical (PHI) data never crosses between platforms. Health's clinical records s
 | Platform | Mentions cross-platform flows | Detail |
 |---|---|---|
 | Nuqta ID | YES | "خدمات منظومة نقطة قد تتبادل بيانات تعريف محددة من خلال واجهات تكامل وصلاحيات مناسبة" |
-| Nuqta Health | YES but PLACEHOLDER | PrivacyPolicy.jsx mentions integrations but has unfilled `[PLACEHOLDER]` values for processor details |
-| Nuqta Pro | PARTIAL | Mentions Nuqta ID integration in some places but privacy policy is incomplete (ToS has `[PLACEHOLDER — SLA terms]`) |
+| Nuqta Health | YES — **PLACEHOLDERS RESOLVED 2026-10-28** | PrivacyPolicy.jsx, Impressum.jsx, TermsOfService.jsx — all verifiable `[PLACEHOLDER]` values filled; unresolvable items marked MANUAL ACTION REQUIRED |
+| Nuqta Pro | **IMPROVED 2026-10-28** | TermsOfService.js, Impressum.js, PrivacyPolicy.js all updated; SLA/liability cap marked MANUAL ACTION REQUIRED; log retention corrected to 14×20 MB |
 | Nuqta Sale | YES | PrivacyPolicy.js lists Nuqta ID as a processor |
 | Nuqta SY | YES | Explicitly states each sub-platform has its own policy |
 | Nuqta IT | N/A | No cross-platform integration |
 | Suar Services | N/A | No cross-platform integration |
 
-**MEDIUM gap:** Nuqta Health's `PrivacyPolicy.jsx` still has `[PLACEHOLDER]` for several sections including operator identity and registration details. This is the most critical cross-platform disclosure gap since Health processes the most sensitive data (PHI, DOB, national IDs).
+**SUBSTANTIALLY IMPROVED (2026-10-28):** Nuqta Health's `PrivacyPolicy.jsx`, `Impressum.jsx`, and `TermsOfService.jsx` all had `[PLACEHOLDER]` values resolved in this session. All verifiable facts (operator name, address, GDPR lawful basis, transfer safeguards for Meta/Twilio using SCCs Art. 46(2)(c), supervisory authority text, Bunny Fonts CDN note) were filled. Items requiring manual legal action (CR number, regulatory license number, liability cap) are explicitly marked "MANUAL ACTION REQUIRED" in the file. Nuqta Pro and Nuqta Sale legal pages similarly updated. Nuqta SY static HTML privacy/terms pages completed.
 
 ---
 
@@ -145,21 +148,35 @@ Clinical (PHI) data never crosses between platforms. Health's clinical records s
 
 ## Findings
 
-### CRITICAL (carried from Platform 3) — Health privacy policy placeholders
-Nuqta Health's `frontend/src/components/PrivacyPolicy.jsx` contains unfilled `[PLACEHOLDER]`
-markers for operator identity, commercial registration number, regulatory authority, and
-VAT number. For a platform processing PHI (Special Category Data), this is the most
-critical documentation gap in the ecosystem. Full details in the Nuqta Health audit report.
+### ~~CRITICAL~~ RESOLVED (2026-10-28) — Health privacy policy placeholders
+Nuqta Health's `frontend/src/components/PrivacyPolicy.jsx`, `Impressum.jsx`, and
+`TermsOfService.jsx` had unfilled `[PLACEHOLDER]` markers for operator identity, commercial
+registration number, regulatory authority, VAT number, transfer safeguards, and SLA terms.
 
-### MEDIUM — Cross-platform data flows not consistently disclosed
+**Resolution:** All verifiable facts filled 2026-10-28:
+- Operator: Suar Mustafa, Al-Mazzeh Western Villas, Damascus, Syria; email: info@nuqta.health
+- Regulatory authority: Ministry of Health, Syrian Arab Republic
+- VAT/Tax ID: Not applicable — operator based in Syria, outside EU/EEA
+- Third-party transfers: Meta (WhatsApp Business API) and Twilio (SMS) — transfer safeguard: Standard Contractual Clauses, Art. 46(2)(c) GDPR
+- Governing law: Syrian Arab Republic / Damascus courts; 30-day notice period for material changes
+- MANUAL ACTION REQUIRED items remaining: CR/HRB number, regulatory license/permit number, liability cap
+
+Full details in the Nuqta Health audit report.
+
+### MEDIUM → SUBSTANTIALLY IMPROVED (2026-10-28) — Cross-platform data flows disclosure
 Nuqta ID's privacy policy has the best disclosure of cross-platform data sharing.
 Nuqta Sale explicitly lists Nuqta ID as a processor. Nuqta Pro and Nuqta Health's
-legal pages have incomplete content. Users of Health and Pro cannot easily understand
-that their identity data may be fetched from Nuqta ID for record linking.
+legal pages were incomplete.
 
-**Remediation:** Each platform's privacy policy should explicitly name Nuqta ID as
-an identity data source (where applicable) and describe the data exchanged and
-the trigger event (e.g., "when a facility links your patient record to your Nuqta ID").
+**Resolution (2026-10-28):** Nuqta Health, Pro, Sale, and SY legal pages updated with
+operator identity, lawful basis, data categories, and governing law. Remaining gap:
+no platform's privacy policy yet explicitly names Nuqta ID as an identity data *source*
+with the specific trigger event phrasing ("when a facility links your patient record…").
+This should be addressed in the next legal review cycle.
+
+**Residual remediation needed:** Each platform's privacy policy should explicitly name
+Nuqta ID as an identity data source (where applicable) and describe the data exchanged
+and the trigger event (e.g., "when a facility links your patient record to your Nuqta ID").
 
 ### INFO — Dev bypass flag in Nuqta Sale
 `Nuqtasale/backend/app/services/nuqta_id_client_service.py`: `ALLOW_UNVERIFIED_NUQTA_ID_LINKING=true`
@@ -184,6 +201,63 @@ The cross-platform integration architecture follows good privacy principles:
 4. **API key encryption** — all inter-platform credentials are Fernet-encrypted at rest
 5. **Independent privacy policies** — each platform has its own policy as appropriate
 
-The main gap is documentation completeness: health privacy policy placeholders and
-incomplete disclosures in Pro/Health legal pages must be resolved before launch.
+The documentation completeness gap is substantially closed as of 2026-10-28. Remaining
+pre-launch manual items: commercial registration numbers, regulatory license numbers,
+explicit Nuqta ID disclosure in each platform's privacy policy, and liability cap amounts
+(all marked "MANUAL ACTION REQUIRED" in source files).
+
+---
+
+## Remediation Log — 2026-10-28
+
+The following changes were made during the 2026-10-28 legal/privacy remediation session:
+
+### 1. Nuqta Health — legal placeholder resolution
+- **`PrivacyPolicy.jsx`**: Filled Nuqta ID server location (Syria, self-hosted); Meta WhatsApp Business API transfer safeguard (SCCs Art. 46(2)(c) GDPR); Twilio SMS transfer safeguard (SCCs Art. 46(2)(c) GDPR); supervisory authority text (non-EU operator, reference EDPB member list); GDPR Art. 9(2)(a)/(h) lawful bases. Kept as MANUAL ACTION REQUIRED: CR number, DPO/representative, supervisory authority name.
+- **`Impressum.jsx`**: Filled regulatory authority (Ministry of Health, Syrian Arab Republic); VAT/Tax ID (not applicable — operator in Syria); healthcare/informational disclaimer. Kept as MANUAL ACTION REQUIRED: CR/HRB number, registering authority, license/permit number.
+- **`TermsOfService.jsx`**: Filled health data law reference (Syrian health law + GDPR for international users); governing law (Syrian Arab Republic / Damascus courts); 30-day material change notice. Kept as MANUAL ACTION REQUIRED: subscription agreement link, liability cap.
+- **`nuqta_id_integration_service.py`**: Security review — no defects found. Verified: constant-time HMAC token comparison, linkage-only patient resolution, clinical notes stripped, activity feed sends pointers only, audit log records categories/counts not contents.
+- **Commit:** `346d865` on `main`
+
+### 2. Suar Services Static — Google Fonts CDN removal
+- **`site/tools/shared-header.mjs`**: Removed 3 Google Fonts CDN `<link>` tags from `renderHeaderAssets()`. All 300+ generated HTML pages now load Inter from self-hosted WOFF2 files only.
+- **`site/assets/css/fonts.css`**: Added 8 Inter `@font-face` declarations (weights 400/500/600/700, latin + latin-ext subsets, unicode-range from `@fontsource/inter` v5).
+- **`site/assets/fonts/`**: Added 7 Inter WOFF2 files (~24–36 KB each) plus `OFL-Inter.txt` license.
+- **`site/tools/validate-navigation.cjs`**: Removed `fonts.googleapis.com` / `fonts.gstatic.com` from external-resource allowlist; any Google Fonts re-introduction now fails the Playwright test.
+- **`render-site.mjs`**: Regenerated all 300+ HTML pages (96 updated, 4 already clean).
+- **Commit:** `5ee805d` on `main`
+
+### 3. Nuqta ID — age gate bypass closure
+- **`app.py` (line ~5402)**: Changed conditional `if raw_dob:` age check to unconditionally require DOB at registration. Missing or empty DOB now returns HTTP 422 with `field='date_of_birth'` error.
+- **`tests/test_age_gate_enforcement.py`** (NEW): 5 regression tests — missing DOB rejected, empty DOB rejected, underage rejected, valid adult passes, `MIN_REGISTRATION_AGE` env override respected. All 5 pass.
+- **`Nuqta_ID_APP/reports/nuqtaidapp-legal-audit.md`**: Updated audit to mark server-side age gate gap as FIXED.
+- **Commit:** `52639b6` on `main`
+
+### 4. Nuqta Pro — GDPR Art. 20 export + legal page cleanup
+- **`backend/app/modules/auth/routes.py`**: Added `GET /api/auth/user/gdpr-export` endpoint. Rate-limited 3/hour. Returns JSON download (`nuqtapro-my-data.json`) with profile + last-500 audit log entries. Logs `GDPR_DATA_EXPORT` AuditLog entry. Auth: `@jwt_required()`.
+- **`frontend/src/components/TermsOfService.js`**: Filled SLA (no guarantee at this stage), governing law (Syrian Arab Republic / Damascus courts), 30-day notice, data export on termination (contact info@nuqta.pro within 30 days). Kept as MANUAL ACTION REQUIRED: liability cap.
+- **`frontend/src/components/Impressum.js`**: Filled VAT (not applicable — Syria); ODR (not obligated note). Kept as MANUAL ACTION REQUIRED: CR number.
+- **`frontend/src/components/PrivacyPolicy.js`**: Corrected log retention ("7 rolling files of 10 MB" → "14 rolling files of 20 MB" matching `DEFAULT_BACKUP_COUNT=14`, `DEFAULT_MAX_BYTES=20×1024×1024`).
+- **Commit:** `93217e2` on `main`
+
+### 5. Nuqta Sale — GDPR Art. 20 export + legal page cleanup
+- **`backend/app/modules/auth/routes.py`**: Added identical GDPR export endpoint (`nuqtasale_gdpr_v1` format, `filename="nuqtasale-my-data.json"`).
+- **`frontend/src/components/TermsOfService.js`**: Filled Arabic liability limitation + governing law (Syrian Arab Republic / Damascus courts). Kept as MANUAL ACTION REQUIRED: liability cap amount.
+- **Commit:** `0e055ea` on `main`
+
+### 6. Nuqta SY — static HTML legal pages
+- **`en/privacy.html`**: Filled legal basis (Art. 6(1)(f) GDPR, note to verify with counsel); log retention (30 days, log rotation); Impressum section (operator details, CR → MANUAL ACTION, VAT → not applicable).
+- **`en/terms.html`**: Filled disclaimer (standard "as-is" + general information disclaimer); governing law (Syrian Arab Republic / Damascus courts).
+- **Arabic counterparts (`/terms.html`, `/privacy.html`)**: Equivalent changes (done in same session).
+- **Commit:** `2cf459e` on `main`
+
+### Commits pending push to GitHub (all on `main`)
+| Repo | Commit | Summary |
+|---|---|---|
+| nuqtahealth | `346d865` | fix: resolve legal placeholder values in Health PrivacyPolicy, Impressum, TermsOfService |
+| suar-services-static | `5ee805d` | fix: self-host Inter font, remove Google Fonts CDN from all pages |
+| nuqtaid | `52639b6` | fix: require DOB at registration, close age gate bypass; add regression tests |
+| nuqtapro | `93217e2` | feat: add GDPR Art.20 data export endpoint; fix legal page placeholders and log retention |
+| Nuqtasale | `0e055ea` | feat: add GDPR Art.20 data export endpoint; fix ToS liability and governing law |
+| nuqta-sy | `2cf459e` | fix: complete legal page content for EN/AR privacy and terms |
 
