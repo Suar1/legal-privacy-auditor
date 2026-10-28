@@ -1,22 +1,22 @@
 # Nuqta Ecosystem — Consolidated Legal & Privacy Audit
-**Audit date:** 2026-10-28 (initial) · **Updated:** 2026-10-28 (session 2) · **Updated:** 2026-10-28 (session 3) · **Updated:** 2026-10-28 (session 4) · **Updated:** 2026-10-28 (session 5) · **Updated:** 2026-10-28 (session 6)
+**Audit date:** 2026-10-28 (initial) · **Updated:** 2026-10-28 (session 2) · **Updated:** 2026-10-28 (session 3) · **Updated:** 2026-10-28 (session 4) · **Updated:** 2026-10-28 (session 5) · **Updated:** 2026-10-28 (session 6) · **Updated:** 2026-10-28 (session 7)
 **Auditor:** Claude (LegalPrivacyAuditor v1 framework)
 **Scope:** 8 platforms + cross-platform data flow review
 **Method:** Automated scanner (LegalPrivacyAuditor) + full manual review of all 14 RULES.md areas
 **Classification:** AUDIT ONLY — not a legal opinion, not a compliance certification
 
-### Current branch SHAs (post session 5, 2026-10-28)
+### Current branch SHAs (post session 7, 2026-10-28)
 
 | Platform | GitHub repo | main SHA |
 |---|---|---|
-| Nuqta ID (backend) | Suar1/nuqtaid | `165d6e6` |
-| Nuqta ID App (mobile) | Suar1/Nuqta_ID_APP | `046c45c` |
-| Nuqta Health | Suar1/nuqtahealth | `1f4da0d` |
-| Nuqta Pro | Suar1/nuqtapro | `f4c169c` |
-| Nuqta Sale | Suar1/Nuqtasale | `609c670` |
-| Nuqta SY | Suar1/Nuqta-SY | `a0d6441` |
-| Nuqta IT | Suar1/nuqtait | `a99fc14` |
-| Suar Services | Suar1/suar-services-static | `5ee805d` |
+| Nuqta ID (backend) | Suar1/nuqtaid | `f37e40e` |
+| Nuqta ID App (mobile) | Suar1/Nuqta_ID_APP | `4a1da26` |
+| Nuqta Health | Suar1/nuqtahealth | `8b42b45` |
+| Nuqta Pro | Suar1/nuqtapro | `f09eec2` |
+| Nuqta Sale | Suar1/Nuqtasale | `eef5cca` |
+| Nuqta SY | Suar1/Nuqta-SY | `459efa7` |
+| Nuqta IT | Suar1/nuqtait | `80d9e83` |
+| Suar Services | Suar1/suar-services-static | `b054445` |
 | Legal/Privacy Auditor | Suar1/legal-privacy-auditor | Audited baseline: `c6be168` (pre-session 5; self-referential SHA excluded) |
 
 ---
@@ -49,7 +49,7 @@ review for governing law, processor DPAs, and Health commercial registration det
 
 ---
 
-## Platform Scorecard (updated 2026-10-28 session 5)
+## Platform Scorecard (updated 2026-10-28 session 7)
 
 **Readiness columns are reported separately.** A source-code audit cannot grant launch
 authorization. Each column reflects a distinct gate; all must be ✓ before production launch.
@@ -58,10 +58,10 @@ authorization. Each column reflects a distinct gate; all must be ✓ before prod
 |---|---|---|---|---|---|---|---|---|---|---|
 | 1. Nuqta ID | 0 | 0 | 1 | 1 | 3 | ✓ Yes (sessions 1–5) | ✓ Yes — all relevant tests pass | Not verified | ✗ No — NEEDS LEGAL REVIEW items remain | ✗ NOT AUTHORIZED |
 | 2. Nuqta ID App | 0 | 1 | 1 | 1 | 3 | ✓ Source fixes applied | ✓ Mobile audit published | Not verified | ✗ No — App Store labels, PrivacyInfo.xcprivacy unverified | ✗ NOT AUTHORIZED |
-| 3. Nuqta Health | 0 | 0 | 2 | 1 | 3 | ✓ Yes (sessions 1–4) | ✓ Yes — relevant tests pass | Not verified | ✗ No — CR#, license#, regulatory authority, governing law unresolved; banner is UI-only, does not prevent deployment | ✗ NOT AUTHORIZED |
-| 4. Nuqta Pro | 0 | 0 | 1 | 1 | 2 | ✓ Yes (sessions 1–5) | ✓ Yes — 68 tests pass | Not verified | ✗ No — governing law, liability cap, SLA placeholder | ✗ NOT AUTHORIZED |
-| 5. Nuqta Sale | 0 | 0 | 1 | 2 | 3 | ✓ Yes (sessions 1–5) | ✓ Yes — 63 tests pass | Not verified | ✗ No — governing law, liability cap, SLA placeholder | ✗ NOT AUTHORIZED |
-| 6. Nuqta SY | 0 | 0 | 2 | 0 | 1 | ✓ Yes — Arabic/English pages completed | ✓ Yes — static tests pass | Not verified | ✗ No — governing law NEEDS LEGAL REVIEW | ✗ NOT AUTHORIZED |
+| 3. Nuqta Health | 0 | 0 | 2 | 1 | 3 | ✓ Yes (sessions 1–4, 7) | ✓ Yes — relevant tests pass | Not verified | ✗ No — CR#, license#, regulatory authority, governing law unresolved; CI gate active (approved=false) | ✗ NOT AUTHORIZED |
+| 4. Nuqta Pro | 0 | 0 | 0 | 1 | 2 | ✓ Yes (sessions 1–5, 7) | ✓ Yes — 68 tests pass | Not verified | ✗ No — governing law, liability cap pending legal review | ✗ NOT AUTHORIZED |
+| 5. Nuqta Sale | 0 | 0 | 0 | 2 | 3 | ✓ Yes (sessions 1–5, 7) | ✓ Yes — 63 tests pass | Not verified | ✗ No — governing law, liability cap pending legal review | ✗ NOT AUTHORIZED |
+| 6. Nuqta SY | 0 | 0 | 0 | 0 | 1 | ✓ Yes — S7: developer text removed | ✓ Yes — static tests pass | Not verified | ✗ No — governing law NEEDS LEGAL REVIEW | ✗ NOT AUTHORIZED |
 | 7. Nuqta IT | 0 | 0 | 1 | 0 | 2 | ✓ Yes — visible placeholders resolved | ✓ Yes — all tests pass | Not verified | ✗ No — governing law, supervisory authority NEEDS LEGAL REVIEW | ✗ NOT AUTHORIZED |
 | 8. Suar Services | 0 | 0 | 1 | 0 | 2 | ✓ Yes — Google Fonts CDN removed | ✓ Yes — navigation tests pass | Not verified | N/A (no legal pages required) | ✗ NOT AUTHORIZED |
 
@@ -285,6 +285,22 @@ authorization. Each column reflects a distinct gate; all must be ✓ before prod
 
 ---
 
+## Session 7 Remediation Log (2026-10-28)
+
+| Item | Platform | Files | Severity | Status | Detail |
+|---|---|---|---|---|---|
+| Pro TermsOfService §8 — MANUAL ACTION REQUIRED developer text visible | Nuqta Pro | `frontend/src/components/TermsOfService.js` | P1 | ✅ RESOLVED | Replaced rendered developer instruction with neutral pending-review statement; instruction moved to JSX comment. commit `f09eec2` |
+| Pro Impressum — MANUAL ACTION REQUIRED in Commercial Register | Nuqta Pro | `frontend/src/components/Impressum.js` | P1 | ✅ RESOLVED | Replaced with "Registration number: Pending". commit `f09eec2` |
+| Sale TermsOfService §6 — Arabic developer instruction visible | Nuqta Sale | `frontend/src/components/TermsOfService.js` | P1 | ✅ RESOLVED | Replaced "إجراء يدوي مطلوب" with neutral Arabic statement; instruction moved to JSX comment. commit `eef5cca` |
+| Sale TermsOfService footer — Arabic developer advisory visible | Nuqta Sale | `frontend/src/components/TermsOfService.js` | P1 | ✅ RESOLVED | Replaced with last-reviewed date. commit `eef5cca` |
+| Health publication gate — UI banner only, not CI-enforced | Nuqta Health | `legal/PUBLICATION_APPROVAL.json`, `.github/workflows/medical-production-gate.yml`, `LEGAL_DEPLOYMENT_NOTES.md` | P1 | ✅ RESOLVED | CI-enforced gate added to medical-production-gate.yml; reads PUBLICATION_APPROVAL.json, fails closed when approved=false. commit `8b42b45` |
+| nuqta-sy banners — [PLACEHOLDER] code element visible to users | Nuqta SY | `privacy.html`, `terms.html`, `en/privacy.html`, `en/terms.html` | P1 | ✅ RESOLVED | Banners rephrased to user-appropriate pending-review notices; inline developer instructions removed or moved to HTML comments. commit `459efa7` |
+| .legal-audit/ gitignore cleanup | nuqtaid, nuqtait, suar-services-static | `.gitignore`, `.legal-audit/` files | INFO | ✅ RESOLVED | Added to gitignore; removed from tracking in nuqtait and suar-services-static. commits `f37e40e`, `80d9e83`, `b054445` |
+| Nuqta ID App audit report unpublished staged update | Nuqta_ID_APP | `reports/nuqtaidapp-legal-audit.md` | INFO | ✅ RESOLVED | Committed updated audit report reflecting all post-2026-10-13 fixes. commit `4a1da26` |
+| Final publication readiness report created | Legal/Privacy Auditor | `reports/NUQTA_PUBLICATION_READINESS.md` | INFO | ✅ CREATED | Full cross-platform publication readiness report, legal approval package, and finding reconciliation. |
+
+---
+
 ## Session 6 Remediation Log (2026-10-28)
 
 | Item | Platform | Files | Severity | Status | Distinction |
@@ -359,15 +375,16 @@ the mobile repo). All reports were written at a prior SHA — see each report's
 
 | Platform | GitHub location | Report SHA | Current SHA | Stale? |
 |---|---|---|---|---|
-| Nuqta ID (backend) | `Suar1/nuqtaid/reports/nuqtaid-legal-audit.md` | `0027d0b` | `165d6e6` | Yes — NID fix, DOB token verification, full DOB validation at activation (session 5) |
-| Nuqta ID App (mobile) | `reports/nuqta-id-app-legal-audit.md` (this repo) | `fe19e66` | `cf93067` (nuqtaid) | Partially — DOB plaintext note added |
-| Nuqta Health | `Suar1/nuqtahealth/reports/nuqtahealth-legal-audit.md` | `3ae6f82` | `1f4da0d` | Yes — placeholder/banner fixes, LEGAL_DEPLOYMENT_NOTES.md |
-| Nuqta Pro | `Suar1/nuqtapro/reports/nuqtapro-legal-audit.md` | `c144437` | `f4c169c` | Yes — GDPR export, typed-value validators, 501-boundary fix (session 5) |
-| Nuqta Sale | `Suar1/Nuqtasale/reports/nuqtasale-legal-audit.md` | `2d21cd8` | `609c670` | Yes — GDPR export, typed-value validators, 501-boundary fix (session 5) |
-| Nuqta SY | `Suar1/Nuqta-SY/reports/nuqta-sy-legal-audit.md` | `a285104` | `a0d6441` | Minor — Arabic pages completed |
-| Nuqta IT | `Suar1/nuqtait/reports/nuqtait-legal-audit.md` | `fee9805` | `a99fc14` | Yes — Docker retention claim corrected |
-| Suar Services | `Suar1/suar-services-static/reports/suar-services-legal-audit.md` | `126de07` | `5ee805d` | Minor — fonts self-hosted |
+| Nuqta ID (backend) | `Suar1/nuqtaid/reports/nuqtaid-legal-audit.md` | `0027d0b` | `f37e40e` | Yes — NID fix, DOB validation, gitignore added (sessions 5, 7) |
+| Nuqta ID App (mobile) | `Suar1/Nuqta_ID_APP/reports/nuqtaidapp-legal-audit.md` + mirror in this repo | `4a1da26` | `4a1da26` | Current — updated session 7 |
+| Nuqta Health | `Suar1/nuqtahealth/reports/nuqtahealth-legal-audit.md` | `3ae6f82` | `8b42b45` | Yes — CI gate added (session 7) |
+| Nuqta Pro | `Suar1/nuqtapro/reports/nuqtapro-legal-audit.md` | `c144437` | `f09eec2` | Yes — developer text removed from TermsOfService (session 7) |
+| Nuqta Sale | `Suar1/Nuqtasale/reports/nuqtasale-legal-audit.md` | `2d21cd8` | `eef5cca` | Yes — developer text removed (session 7) |
+| Nuqta SY | `Suar1/Nuqta-SY/reports/nuqta-sy-legal-audit.md` | `a285104` | `459efa7` | Yes — developer text removed from banners (session 7) |
+| Nuqta IT | `Suar1/nuqtait/reports/nuqtait-legal-audit.md` | `fee9805` | `80d9e83` | Yes — .legal-audit removed from tracking (session 7) |
+| Suar Services | `Suar1/suar-services-static/reports/suar-services-legal-audit.md` | `126de07` | `b054445` | Minor — .legal-audit removed (session 7) |
 | Cross-platform flows | `reports/cross-platform-data-flow-audit.md` (this repo) | `15d5ec1` | `d87e608` | Partially updated |
+| **FINAL READINESS REPORT** | `reports/NUQTA_PUBLICATION_READINESS.md` (this repo) | — | Current | **New — created session 7** |
 
 > Each individual report retains its original findings. Session-level fixes are
 > recorded in the Session Remediation Logs in this consolidated report. The
