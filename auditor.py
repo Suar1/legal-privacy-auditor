@@ -22,7 +22,13 @@ TEXT_EXT = {
 }
 SKIP_DIRS = {
     ".git", "node_modules", "vendor", "dist", "build", ".next", ".nuxt",
-    ".venv", "venv", "coverage", "Pods", ".gradle", "target", ".legal-audit"
+    ".venv", "venv", "coverage", "Pods", ".gradle", "target", ".legal-audit",
+    # Exclude scanner output directories so re-scanning a repo that already
+    # has a report does not generate false positives from the report text.
+    "reports",
+    # Exclude agent/skill libraries that contain prose descriptions of UI
+    # animations and other unrelated content.
+    ".agents", "__pycache__",
 }
 TRACKERS = {
     "google-analytics.com", "googletagmanager.com", "segment.com", "segment.io",
@@ -150,7 +156,13 @@ def scan(repo: Path, cfg: dict, include_paths: set[str] | None = None) -> dict:
 
         for match in URL_RE.finditer(text):
             raw = match.group(0).rstrip(".,;")
-            host = (urlparse(raw).hostname or "").lower()
+            # urlparse raises ValueError for malformed URLs such as those
+            # that contain a bracket sequence mistaken for an IPv6 address
+            # (e.g. markdown link syntax captured by the greedy regex).
+            try:
+                host = (urlparse(raw).hostname or "").lower()
+            except ValueError:
+                continue
             if not host:
                 continue
             tracking = any(host == d or host.endswith("." + d) for d in TRACKERS)
@@ -236,7 +248,19 @@ def scan(repo: Path, cfg: dict, include_paths: set[str] | None = None) -> dict:
                     "evidence": [evidence(repo, path, text, match)],
                 })
 
-        payment_regex = re.compile(r"(?i)\b(card_number|cardnumber|credit_card|cvv|cvc|pan)\b")
+        # Bare `pan` matches CSS touch-action (pan-y, pan-x), animation
+        # descriptions, camera pans, React Native Gesture.Pan(), etc.
+        # Only match `pan` when it appears as a compound payment-specific
+        # identifier.  The unambiguous terms (card_number, cvv, cvc,
+        # credit_card) are kept as-is.
+        payment_regex = re.compile(
+            r"(?i)\b("
+            r"card_number|cardnumber|credit_card|cvv|cvc"
+            r"|pan[_-](?:number|no|num|data|field|value|token|storage)"
+            r"|card[_-]pan"
+            r"|primary[_-]account[_-]number"
+            r")\b"
+        )
         for match in payment_regex.finditer(text):
             provider = any(x in low for x in ("stripe", "adyen", "braintree", "paypal"))
             findings.append({
