@@ -1,5 +1,5 @@
 # Nuqta Ecosystem — Consolidated Legal & Privacy Audit
-**Audit date:** 2026-10-28 (initial) · **Updated:** 2026-10-28 (session 2) · **Updated:** 2026-10-28 (session 3) · **Updated:** 2026-10-28 (session 4) · **Updated:** 2026-10-28 (session 5)
+**Audit date:** 2026-10-28 (initial) · **Updated:** 2026-10-28 (session 2) · **Updated:** 2026-10-28 (session 3) · **Updated:** 2026-10-28 (session 4) · **Updated:** 2026-10-28 (session 5) · **Updated:** 2026-10-28 (session 6)
 **Auditor:** Claude (LegalPrivacyAuditor v1 framework)
 **Scope:** 8 platforms + cross-platform data flow review
 **Method:** Automated scanner (LegalPrivacyAuditor) + full manual review of all 14 RULES.md areas
@@ -77,7 +77,8 @@ authorization. Each column reflects a distinct gate; all must be ✓ before prod
   email, retention periods) filled. Remaining MANUAL ACTION items (commercial registration
   number, healthcare license number, regulatory authority) now marked with explicit
   NEEDS LEGAL REVIEW notices. "NOT APPROVED FOR PUBLICATION" red banner added to the page
-  to prevent accidental deployment before legal sign-off.
+  as a visible UI warning. **Note:** the banner is UI-only and does not technically prevent
+  deployment — the deployment guard remains unimplemented (see `LEGAL_DEPLOYMENT_NOTES.md`).
 - **Remaining:** CR# and healthcare license# require operator manual action; not a
   blocking technical issue — it is a legal completeness issue.
 
@@ -260,7 +261,7 @@ authorization. Each column reflects a distinct gate; all must be ✓ before prod
 | GDPR rights listed | ✓ | N/A | ✓ | ✓ partial | ✓ | ✓ | ✓ | ✓ |
 
 **Key:** ✓ = implemented/complete, ✗ = missing/incomplete, N/A = not applicable
-¹ Health legal pages have "NOT APPROVED FOR PUBLICATION" banner — require legal sign-off for CR#, license#, regulatory authority, governing law before going live.
+¹ Health legal pages have "NOT APPROVED FOR PUBLICATION" banner (UI-only warning; does not prevent deployment — deployment guard is unimplemented per `LEGAL_DEPLOYMENT_NOTES.md`) — require legal sign-off for CR#, license#, regulatory authority, governing law before going live.
 
 ---
 
@@ -281,6 +282,14 @@ authorization. Each column reflects a distinct gate; all must be ✓ before prod
 11. **MANUAL ACTION — operator:** Health CR#, healthcare license# (P2-1)
 12. **Before App Store submission:** Nuqta ID App — verify PrivacyInfo.xcprivacy (P2-2)
 13. **Security hardening (non-blocking):** Health .env permissions (664 → 600)
+
+---
+
+## Session 6 Remediation Log (2026-10-28)
+
+| Item | Platform | Files | Severity | Status | Distinction |
+|---|---|---|---|---|---|
+| Health NOT APPROVED banner statement corrected | LegalPrivacyAuditor | this report | INFO | ✅ CORRECTED | P0-1 resolution text and footnote ¹ previously stated the banner "prevents accidental deployment". Corrected: banner is UI-only; deployment guard is unimplemented; `LEGAL_DEPLOYMENT_NOTES.md` documents the limitation. |
 
 ---
 
