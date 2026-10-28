@@ -1,5 +1,5 @@
 # Nuqta Ecosystem — Consolidated Legal & Privacy Audit
-**Audit date:** 2026-10-28 (initial) · **Updated:** 2026-10-28 (session 2) · **Updated:** 2026-10-28 (session 3)
+**Audit date:** 2026-10-28 (initial) · **Updated:** 2026-10-28 (session 2) · **Updated:** 2026-10-28 (session 3) · **Updated:** 2026-10-28 (session 4)
 **Auditor:** Claude (LegalPrivacyAuditor v1 framework)
 **Scope:** 8 platforms + cross-platform data flow review
 **Method:** Automated scanner (LegalPrivacyAuditor) + full manual review of all 14 RULES.md areas
@@ -9,15 +9,15 @@
 
 | Platform | GitHub repo | main SHA |
 |---|---|---|
-| Nuqta ID (backend) | Suar1/nuqtaid | `f8ac72f` |
+| Nuqta ID (backend) | Suar1/nuqtaid | `cf93067` |
 | Nuqta ID App (mobile) | Suar1/Nuqta_ID_APP | `046c45c` |
 | Nuqta Health | Suar1/nuqtahealth | `abcbdba` |
-| Nuqta Pro | Suar1/nuqtapro | `ea3af27` |
-| Nuqta Sale | Suar1/Nuqtasale | `88cb27d` |
+| Nuqta Pro | Suar1/nuqtapro | `2dba2cc` |
+| Nuqta Sale | Suar1/Nuqtasale | `05ba034` |
 | Nuqta SY | Suar1/nuqta-sy | `a0d6441` |
 | Nuqta IT | Suar1/nuqtait | `a99fc14` |
 | Suar Services | Suar1/suar-services-static | `5ee805d` |
-| Legal/Privacy Auditor | Suar1/legal-privacy-auditor | `fe19e66` |
+| Legal/Privacy Auditor | Suar1/legal-privacy-auditor | *(pending this commit)* |
 
 ---
 
@@ -281,6 +281,20 @@ review for governing law, processor DPAs, and Health commercial registration det
 
 ---
 
+## Session 4 Remediation Log (2026-10-28)
+
+| Item | Platform | Files | Severity | Status | Distinction |
+|---|---|---|---|---|---|
+| NID plaintext exclusion from PendingRegistration | Nuqta ID | `app.py`, `tests/test_pending_nid_encryption.py` | P1 | ✅ SOURCE FIX + TESTS PASSED (8 new tests) | `national_id` excluded; `_nid_encrypted` (Fernet) stored instead; commit `cf93067` |
+| DOB token verification before User assignment | Nuqta ID | `identity_profile.py` | P1 | ✅ SOURCE FIX + TESTS PASSED | `_dob_encrypted` token now verified via `decrypt_dob()` before assignment; malformed token returns error |
+| GDPR audit allowlist (email/paths/exceptions) | Nuqta Pro | `user_service.py`, `auth/routes.py`, `tests/` | P1 | ✅ SOURCE FIX + TESTS PASSED (23 total) | Explicit `_AUDIT_EXPORT_SAFE_KEYS` allowlist replaces regex denylist; commit `2dba2cc` |
+| GDPR audit allowlist (same + backup/restore paths) | Nuqta Sale | same pattern | P1 | ✅ SOURCE FIX + TESTS PASSED (23 total) | commit `05ba034` |
+| audit_log_status = 'truncated_most_recent_500' | Pro + Sale | `auth/routes.py` | INFO | ✅ SOURCE FIX | Was always 'complete' even when 500-row cap applied |
+| Individual Platform Reports table correction | LegalPrivacyAuditor | this report | INFO | ✅ CORRECTED | Reports ARE tracked in each platform repo; table now shows correct tracked paths and staleness |
+| Health NOT APPROVED banner limitation documented | Nuqta Health | `LEGAL_DEPLOYMENT_NOTES.md` | INFO | ✅ DOCUMENTED | Banner is UI-only; does not technically prevent deployment; limitation documented |
+
+---
+
 ## Session 3 Remediation Log (2026-10-28)
 
 | Item | Platform | Files | Severity | Status | Distinction |
@@ -316,21 +330,27 @@ review for governing law, processor DPAs, and Health commercial registration det
 
 ## Individual Platform Reports
 
-> ⚠ Most platform repos gitignore their `reports/` directories. The only tracked
-> individual report is the Nuqta ID App report published in this repo (session 3).
-> Other per-platform reports are local scanner output only and are not on GitHub.
+Individual reports are tracked in each platform's own `reports/` directory on GitHub.
+The Nuqta ID App report is also mirrored here (since the source copy is gitignored in
+the mobile repo). All reports were written at a prior SHA — see each report's
+`Branch/SHA` header and the "Current branch SHAs" table above for the gap.
 
-| Platform | Tracked location | Local (gitignored) |
-|---|---|---|
-| Nuqta ID (backend) | — (findings in this consolidated report) | `/home/suar/nuqtaid/.legal-audit/` (scan.json, state.json) |
-| Nuqta ID App (mobile) | `reports/nuqta-id-app-legal-audit.md` ← this repo ✓ | `/home/suar/Nuqta_ID_APP/reports/nuqtaidapp-legal-audit.md` |
-| Nuqta Health | — (findings in this consolidated report) | `/home/suar/nuqtahealth/reports/` (gitignored) |
-| Nuqta Pro | — (findings in this consolidated report) | `/home/suar/nuqtapro/reports/` (gitignored) |
-| Nuqta Sale | — (findings in this consolidated report) | `/home/suar/Nuqtasale/reports/` (gitignored) |
-| Nuqta SY | — (findings in this consolidated report) | `/home/suar/nuqta-sy/reports/` (gitignored) |
-| Nuqta IT | — (findings in this consolidated report) | `/home/suar/nuqtait/reports/` (gitignored) |
-| Suar Services | — (findings in this consolidated report) | `/home/suar/suar-services-static/reports/` (gitignored) |
-| Cross-platform flows | `reports/cross-platform-data-flow-audit.md` ← this repo ✓ | — |
+| Platform | GitHub location | Report SHA | Current SHA | Stale? |
+|---|---|---|---|---|
+| Nuqta ID (backend) | `Suar1/nuqtaid/reports/nuqtaid-legal-audit.md` | `0027d0b` | `cf93067` | Yes — NID fix, DOB token verification added |
+| Nuqta ID App (mobile) | `reports/nuqta-id-app-legal-audit.md` (this repo) | `fe19e66` | `cf93067` (nuqtaid) | Partially — DOB plaintext note added |
+| Nuqta Health | `Suar1/nuqtahealth/reports/nuqtahealth-legal-audit.md` | `3ae6f82` | `abcbdba` | Yes — placeholder/banner fixes applied |
+| Nuqta Pro | `Suar1/nuqtapro/reports/nuqtapro-legal-audit.md` | `c144437` | `2dba2cc` | Yes — GDPR export, audit allowlist added |
+| Nuqta Sale | `Suar1/Nuqtasale/reports/nuqtasale-legal-audit.md` | `2d21cd8` | `05ba034` | Yes — GDPR export, audit allowlist added |
+| Nuqta SY | `Suar1/nuqta-sy/reports/nuqta-sy-legal-audit.md` | `a285104` | `a0d6441` | Minor — Arabic pages completed |
+| Nuqta IT | `Suar1/nuqtait/reports/nuqtait-legal-audit.md` | `fee9805` | `a99fc14` | Yes — Docker retention claim corrected |
+| Suar Services | `Suar1/suar-services-static/reports/suar-services-legal-audit.md` | `126de07` | `5ee805d` | Minor — fonts self-hosted |
+| Cross-platform flows | `reports/cross-platform-data-flow-audit.md` (this repo) | `15d5ec1` | `d87e608` | Partially updated |
+
+> Each individual report retains its original findings. Session-level fixes are
+> recorded in the Session Remediation Logs in this consolidated report. The
+> individual reports have not been retroactively edited to avoid misrepresenting
+> the state of the code at the time they were written.
 
 ---
 
