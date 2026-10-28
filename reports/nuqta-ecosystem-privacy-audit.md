@@ -1,23 +1,23 @@
 # Nuqta Ecosystem — Consolidated Legal & Privacy Audit
-**Audit date:** 2026-10-28 (initial) · **Updated:** 2026-10-28 (session 2) · **Updated:** 2026-10-28 (session 3) · **Updated:** 2026-10-28 (session 4)
+**Audit date:** 2026-10-28 (initial) · **Updated:** 2026-10-28 (session 2) · **Updated:** 2026-10-28 (session 3) · **Updated:** 2026-10-28 (session 4) · **Updated:** 2026-10-28 (session 5)
 **Auditor:** Claude (LegalPrivacyAuditor v1 framework)
 **Scope:** 8 platforms + cross-platform data flow review
 **Method:** Automated scanner (LegalPrivacyAuditor) + full manual review of all 14 RULES.md areas
 **Classification:** AUDIT ONLY — not a legal opinion, not a compliance certification
 
-### Current branch SHAs (post session 3, 2026-10-28)
+### Current branch SHAs (post session 5, 2026-10-28)
 
 | Platform | GitHub repo | main SHA |
 |---|---|---|
-| Nuqta ID (backend) | Suar1/nuqtaid | `cf93067` |
+| Nuqta ID (backend) | Suar1/nuqtaid | `165d6e6` |
 | Nuqta ID App (mobile) | Suar1/Nuqta_ID_APP | `046c45c` |
-| Nuqta Health | Suar1/nuqtahealth | `abcbdba` |
-| Nuqta Pro | Suar1/nuqtapro | `2dba2cc` |
-| Nuqta Sale | Suar1/Nuqtasale | `05ba034` |
-| Nuqta SY | Suar1/nuqta-sy | `a0d6441` |
+| Nuqta Health | Suar1/nuqtahealth | `1f4da0d` |
+| Nuqta Pro | Suar1/nuqtapro | `f4c169c` |
+| Nuqta Sale | Suar1/Nuqtasale | `609c670` |
+| Nuqta SY | Suar1/Nuqta-SY | `a0d6441` |
 | Nuqta IT | Suar1/nuqtait | `a99fc14` |
 | Suar Services | Suar1/suar-services-static | `5ee805d` |
-| Legal/Privacy Auditor | Suar1/legal-privacy-auditor | `d809a40` |
+| Legal/Privacy Auditor | Suar1/legal-privacy-auditor | Audited baseline: `c6be168` (pre-session 5; self-referential SHA excluded) |
 
 ---
 
@@ -39,7 +39,7 @@ governing law, supervisory authority, limitation of liability caps, and commerci
 numbers across several platforms.
 
 **Overall ecosystem readiness for pilot (technical perspective):** All known P0/P1 source-code
-issues resolved as of session 3. This is a source-code technical finding only — it does NOT
+issues resolved as of session 5. This is a source-code technical finding only — it does NOT
 constitute legal approval, compliance certification, or a clearance to process real patient data.
 Pilot readiness for live users requires separate sign-off from qualified legal counsel on governing
 law, processor DPAs, and commercial registration.
@@ -49,18 +49,21 @@ review for governing law, processor DPAs, and Health commercial registration det
 
 ---
 
-## Platform Scorecard (updated 2026-10-28 session 2)
+## Platform Scorecard (updated 2026-10-28 session 5)
 
-| Platform | CRITICAL | HIGH | MEDIUM | LOW | Info | Pilot OK? |
-|---|---|---|---|---|---|---|
-| 1. Nuqta ID | 0 | 0 | 1 | 1 | 3 | ✓ Yes — age gate fixed, DOB Fernet-encrypted, no plaintext DOB in pending |
-| 2. Nuqta ID App | 0 | 1 | 1 | 1 | 3 | ✓ Yes (App Store label needed for iOS) |
-| 3. Nuqta Health | 0 | 0 | 2 | 1 | 3 | ✓ Yes — NOT APPROVED banner added; requires legal sign-off before going live |
-| 4. Nuqta Pro | 0 | 0 | 1 | 1 | 2 | ✓ Yes — GDPR export credential leak fixed |
-| 5. Nuqta Sale | 0 | 0 | 1 | 2 | 3 | ✓ Yes — GDPR export credential leak fixed |
-| 6. Nuqta SY | 0 | 0 | 2 | 0 | 1 | ✓ Yes — Arabic pages completed |
-| 7. Nuqta IT | 0 | 0 | 1 | 0 | 2 | ✓ Yes — visible placeholders resolved |
-| 8. Suar Services | 0 | 0 | 1 | 0 | 2 | ✓ Yes — Google Fonts CDN removed, Inter self-hosted |
+**Readiness columns are reported separately.** A source-code audit cannot grant launch
+authorization. Each column reflects a distinct gate; all must be ✓ before production launch.
+
+| Platform | CRITICAL | HIGH | MEDIUM | LOW | Info | Tech Remediations Applied? | Local Tests Run? | Hosted CI? | Legal Docs Approved? | Launch Auth? |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1. Nuqta ID | 0 | 0 | 1 | 1 | 3 | ✓ Yes (sessions 1–5) | ✓ Yes — all relevant tests pass | Not verified | ✗ No — NEEDS LEGAL REVIEW items remain | ✗ NOT AUTHORIZED |
+| 2. Nuqta ID App | 0 | 1 | 1 | 1 | 3 | ✓ Source fixes applied | ✓ Mobile audit published | Not verified | ✗ No — App Store labels, PrivacyInfo.xcprivacy unverified | ✗ NOT AUTHORIZED |
+| 3. Nuqta Health | 0 | 0 | 2 | 1 | 3 | ✓ Yes (sessions 1–4) | ✓ Yes — relevant tests pass | Not verified | ✗ No — CR#, license#, regulatory authority, governing law unresolved; banner is UI-only, does not prevent deployment | ✗ NOT AUTHORIZED |
+| 4. Nuqta Pro | 0 | 0 | 1 | 1 | 2 | ✓ Yes (sessions 1–5) | ✓ Yes — 68 tests pass | Not verified | ✗ No — governing law, liability cap, SLA placeholder | ✗ NOT AUTHORIZED |
+| 5. Nuqta Sale | 0 | 0 | 1 | 2 | 3 | ✓ Yes (sessions 1–5) | ✓ Yes — 63 tests pass | Not verified | ✗ No — governing law, liability cap, SLA placeholder | ✗ NOT AUTHORIZED |
+| 6. Nuqta SY | 0 | 0 | 2 | 0 | 1 | ✓ Yes — Arabic/English pages completed | ✓ Yes — static tests pass | Not verified | ✗ No — governing law NEEDS LEGAL REVIEW | ✗ NOT AUTHORIZED |
+| 7. Nuqta IT | 0 | 0 | 1 | 0 | 2 | ✓ Yes — visible placeholders resolved | ✓ Yes — all tests pass | Not verified | ✗ No — governing law, supervisory authority NEEDS LEGAL REVIEW | ✗ NOT AUTHORIZED |
+| 8. Suar Services | 0 | 0 | 1 | 0 | 2 | ✓ Yes — Google Fonts CDN removed | ✓ Yes — navigation tests pass | Not verified | N/A (no legal pages required) | ✗ NOT AUTHORIZED |
 
 ---
 
@@ -261,7 +264,7 @@ review for governing law, processor DPAs, and Health commercial registration det
 
 ---
 
-## Remediation Priority Order (updated 2026-10-28 session 3)
+## Remediation Priority Order (updated 2026-10-28 session 5)
 
 **All P0 and P1 technical items resolved. Remaining items require legal counsel or manual operator actions.**
 
@@ -270,8 +273,8 @@ review for governing law, processor DPAs, and Health commercial registration det
 3. ✅ DONE — Nuqta Sale + Pro: GDPR export credential leaks fixed, allowlist serializers + regression tests added
 4. ✅ DONE — Nuqta SY: Arabic legal pages completed
 5. ✅ DONE — Nuqta IT: visible placeholder strings resolved; Docker log retention claim corrected
-6. ✅ FIXED — Nuqta ID: age gate watertight; DOB Fernet-encrypted at rest; DOB plaintext excluded from pending records (session 3)
-7. ✅ DONE — Sale/Pro AuditLog.details: third-party emails/paths/exceptions sanitized before GDPR export; `audit_log_status` field added (session 3)
+6. ✅ FIXED — Nuqta ID: age gate watertight; DOB Fernet-encrypted at rest; DOB plaintext excluded from pending records (session 3); full DOB validation after decryption at activation (session 5)
+7. ✅ DONE — Sale/Pro AuditLog.details: typed per-field value validation; 501-fetch boundary fix; `audit_log_status` accuracy confirmed (sessions 3+5)
 8. ✅ DONE — Health rendered developer instructions: moved to JSX comments; NOT APPROVED banners added (session 3)
 9. ✅ PUBLISHED — Nuqta ID Mobile audit report: canonical copy in `legal-privacy-auditor/reports/nuqta-id-app-legal-audit.md` (session 3)
 10. **Before B2B onboarding:** Sale, Pro — legal counsel for governing law, liability caps, SLA (P1-4)
@@ -280,6 +283,16 @@ review for governing law, processor DPAs, and Health commercial registration det
 13. **Security hardening (non-blocking):** Health .env permissions (664 → 600)
 
 ---
+
+## Session 5 Remediation Log (2026-10-28)
+
+| Item | Platform | Files | Severity | Status | Distinction |
+|---|---|---|---|---|---|
+| Typed per-field value validation for GDPR audit export | Nuqta Pro | `user_service.py`, `auth/routes.py`, `tests/` | P1 | ✅ SOURCE FIX + TESTS PASSED (68 total, +45 new) | Per-field typed validators: IDs (int ≤2^31-1), monetary (finite Decimal), counters (non-neg int), booleans (True/False only). Arbitrary string values in allowed keys now rejected. commit `f4c169c` |
+| Typed per-field value validation for GDPR audit export | Nuqta Sale | same pattern + Sale-specific fields (deleted/freed/count/cashier_id/product_id) | P1 | ✅ SOURCE FIX + TESTS PASSED (63 total, +40 new) | Independently verified from Sale log_audit call sites. commit `609c670` |
+| 501-fetch boundary for audit export status accuracy | Pro + Sale | `auth/routes.py` | P1 | ✅ SOURCE FIX + TESTS PASSED (6 boundary tests) | Fetch limit+1 rows; `complete` only when no extra row exists; `truncated_most_recent_500` only when 501st row confirmed. id DESC tie-break for stable ordering. |
+| Full DOB validation after Fernet decryption at activation | Nuqta ID | `identity_profile.py`, `tests/test_dob_activation_validation.py` | P1 | ✅ SOURCE FIX + TESTS PASSED (24 new tests) | Added `validate_dob_age()` shared helper. After decrypting `_dob_encrypted`, run `parse_optional_date_of_birth` (calendar validity, future-date) then age gate via `MIN_REGISTRATION_AGE`. Malformed/underage tokens abort activation. commit `165d6e6` |
+| Report corrections: stale SHAs, repo path, session labels, scorecard | LegalPrivacyAuditor | this report | INFO | ✅ CORRECTED | Health SHA `abcbdba`→`1f4da0d`; Pro `2dba2cc`→`f4c169c`; Sale `05ba034`→`609c670`; ID `cf93067`→`165d6e6`; `nuqta-sy`→`Nuqta-SY`; self-referential auditor SHA replaced with documented baseline; "Pilot OK?" column replaced with per-dimension status columns. |
 
 ## Session 4 Remediation Log (2026-10-28)
 
@@ -337,12 +350,12 @@ the mobile repo). All reports were written at a prior SHA — see each report's
 
 | Platform | GitHub location | Report SHA | Current SHA | Stale? |
 |---|---|---|---|---|
-| Nuqta ID (backend) | `Suar1/nuqtaid/reports/nuqtaid-legal-audit.md` | `0027d0b` | `cf93067` | Yes — NID fix, DOB token verification added |
+| Nuqta ID (backend) | `Suar1/nuqtaid/reports/nuqtaid-legal-audit.md` | `0027d0b` | `165d6e6` | Yes — NID fix, DOB token verification, full DOB validation at activation (session 5) |
 | Nuqta ID App (mobile) | `reports/nuqta-id-app-legal-audit.md` (this repo) | `fe19e66` | `cf93067` (nuqtaid) | Partially — DOB plaintext note added |
-| Nuqta Health | `Suar1/nuqtahealth/reports/nuqtahealth-legal-audit.md` | `3ae6f82` | `abcbdba` | Yes — placeholder/banner fixes applied |
-| Nuqta Pro | `Suar1/nuqtapro/reports/nuqtapro-legal-audit.md` | `c144437` | `2dba2cc` | Yes — GDPR export, audit allowlist added |
-| Nuqta Sale | `Suar1/Nuqtasale/reports/nuqtasale-legal-audit.md` | `2d21cd8` | `05ba034` | Yes — GDPR export, audit allowlist added |
-| Nuqta SY | `Suar1/nuqta-sy/reports/nuqta-sy-legal-audit.md` | `a285104` | `a0d6441` | Minor — Arabic pages completed |
+| Nuqta Health | `Suar1/nuqtahealth/reports/nuqtahealth-legal-audit.md` | `3ae6f82` | `1f4da0d` | Yes — placeholder/banner fixes, LEGAL_DEPLOYMENT_NOTES.md |
+| Nuqta Pro | `Suar1/nuqtapro/reports/nuqtapro-legal-audit.md` | `c144437` | `f4c169c` | Yes — GDPR export, typed-value validators, 501-boundary fix (session 5) |
+| Nuqta Sale | `Suar1/Nuqtasale/reports/nuqtasale-legal-audit.md` | `2d21cd8` | `609c670` | Yes — GDPR export, typed-value validators, 501-boundary fix (session 5) |
+| Nuqta SY | `Suar1/Nuqta-SY/reports/nuqta-sy-legal-audit.md` | `a285104` | `a0d6441` | Minor — Arabic pages completed |
 | Nuqta IT | `Suar1/nuqtait/reports/nuqtait-legal-audit.md` | `fee9805` | `a99fc14` | Yes — Docker retention claim corrected |
 | Suar Services | `Suar1/suar-services-static/reports/suar-services-legal-audit.md` | `126de07` | `5ee805d` | Minor — fonts self-hosted |
 | Cross-platform flows | `reports/cross-platform-data-flow-audit.md` (this repo) | `15d5ec1` | `d87e608` | Partially updated |
