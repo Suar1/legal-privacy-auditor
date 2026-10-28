@@ -17,7 +17,7 @@
 | Nuqta SY | Suar1/nuqta-sy | `a0d6441` |
 | Nuqta IT | Suar1/nuqtait | `a99fc14` |
 | Suar Services | Suar1/suar-services-static | `5ee805d` |
-| Legal/Privacy Auditor | Suar1/legal-privacy-auditor | *(pending this commit)* |
+| Legal/Privacy Auditor | Suar1/legal-privacy-auditor | `d809a40` |
 
 ---
 
