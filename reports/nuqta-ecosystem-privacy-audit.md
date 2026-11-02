@@ -196,7 +196,7 @@ authorization. Each column reflects a distinct gate; all must be ✓ before prod
   proxy — no write access to imaging data (commit df4cc68).
 
 ### Legal pages
-- **Real operator identity in all platforms:** Suar Mustafa, Damascus/Munich/Syria.
+- **Real operator identity in all platforms:** [REDACTED], Damascus/Syria.
   No platform has entirely fictitious operator details.
 - **Bunny Fonts across all platforms except Suar Services:** Google Fonts replaced with
   Bunny Fonts in Nuqta ID, Health, Pro, Sale, SY, IT — reducing EU data transfer risk.

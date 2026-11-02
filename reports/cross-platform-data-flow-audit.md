@@ -154,7 +154,7 @@ Nuqta Health's `frontend/src/components/PrivacyPolicy.jsx`, `Impressum.jsx`, and
 registration number, regulatory authority, VAT number, transfer safeguards, and SLA terms.
 
 **Resolution:** All verifiable facts filled 2026-10-28:
-- Operator: Suar Mustafa, Al-Mazzeh Western Villas, Damascus, Syria; email: info@nuqta.health
+- Operator: [REDACTED], Damascus, Syria; email: info@nuqta.health
 - Regulatory authority: Ministry of Health, Syrian Arab Republic
 - VAT/Tax ID: Not applicable — operator based in Syria, outside EU/EEA
 - Third-party transfers: Meta (WhatsApp Business API) and Twilio (SMS) — transfer safeguard: Standard Contractual Clauses, Art. 46(2)(c) GDPR
